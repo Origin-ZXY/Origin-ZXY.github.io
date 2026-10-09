@@ -1,0 +1,134 @@
+/* Digital paper, inspired by the supplied Yuri.WG reference.
+   Native canvas typography and botanical geometry.
+   DESIGN_VARIANCE: 6; MOTION_INTENSITY: 5; VISUAL_DENSITY: 2. */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --background: #fafbfc;
+  --surface: #f1f3f6;
+  --surface-alt: #e8ecf2;
+  --text: #20252d;
+  --secondary: #646b76;
+  --border: #e2e5eb;
+  --accent: #596bd5;
+  --accent-soft: #eef0fc;
+  --button-text: #ffffff;
+  --header: rgb(250 251 252 / 95%);
+  --star-rgb: 40, 47, 57;
+  --star-glow: 96, 115, 224;
+  --space-light: 118, 139, 211;
+  --grid-color: rgb(116 131 173 / 8%);
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --background: #08090c;
+  --surface: #111318;
+  --surface-alt: #191c24;
+  --text: #e8eaf0;
+  --secondary: #9b9ea9;
+  --border: #24272f;
+  --accent: #a3afff;
+  --accent-soft: #1c223e;
+  --button-text: #111526;
+  --header: rgb(8 9 12 / 95%);
+  --star-rgb: 226, 231, 244;
+  --star-glow: 134, 153, 250;
+  --space-light: 83, 103, 170;
+  --grid-color: rgb(116 131 173 / 6%);
+}
+.site-header { backdrop-filter: none; }
+.header-inner { height: 68px; }
+.wordmark { font-size: 16px; letter-spacing: .03em; font-weight: 600; }
+.wordmark span { font-size: 22px; }
+#navigation a { font-size: 12px; letter-spacing: .06em; }
+.hero--cosmos {
+  position: relative; isolation: isolate; display: grid; place-items: center;
+  min-height: calc(100dvh - 69px); overflow: hidden;
+  background: var(--background); border-bottom: 1px solid var(--border);
+}
+.hero--cosmos::before {
+  content: ''; position: absolute; inset: 26px 4.5% 32px; pointer-events: none;
+  background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 64px 64px; background-position: center;
+  mask-image: radial-gradient(ellipse at center, #000 25%, transparent 78%);
+}
+#space-background { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.space-haze { position: absolute; inset: 0; pointer-events: none; opacity: .35; background: radial-gradient(ellipse at 72% 84%, rgba(var(--space-light), .09), transparent 48%); }
+.field-frame { position: absolute; inset: 50px 6% 42px; pointer-events: none; }
+.field-frame i { position: absolute; width: 22px; height: 22px; border-color: var(--border); border-style: solid; border-width: 0; }
+.field-frame i:nth-child(1) { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+.field-frame i:nth-child(2) { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+.field-frame i:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+.field-frame i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+.hero-content { position: relative; width: min(1320px, calc(100% - 112px)); padding: 76px 0 126px; text-align: center; }
+.cosmos-intro { display: flex; justify-content: center; align-items: center; gap: 14px; margin-bottom: 16px; color: var(--secondary); font-size: 11px; letter-spacing: .13em; }
+.cosmos-intro span { width: 3px; height: 3px; background: var(--accent); border-radius: 50%; }
+.particle-stage { position: relative; height: clamp(228px, 22vw, 310px); width: 100%; margin-inline: auto; outline-offset: 5px; touch-action: pan-y pinch-zoom; border-radius: 4px; cursor: crosshair; user-select: none; }
+.particle-stage:focus-visible { outline: 1px solid var(--accent); }
+#title-stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
+.particle-stage[data-ready] #title-stars { opacity: 1; }
+.particle-fallback { display: grid; align-content: center; height: 100%; margin: 0; font-weight: 800; line-height: 1.1; color: var(--text); }
+.particle-fallback span { font-size: clamp(44px, 9.5vw, 152px); letter-spacing: -.06em; word-spacing: .12em; }
+.title-break { display: none; }
+.particle-stage[data-ready] .particle-fallback { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.hero--cosmos .hero-description { margin-top: 25px; font-size: 17px; font-weight: 400; line-height: 1.9; letter-spacing: .05em; color: var(--secondary); }
+.hero--cosmos .hero-buttons { justify-content: center; margin-top: 24px; gap: 32px; }
+.hero--cosmos .button { font-family: var(--font); font-weight: 400; font-size: 12px; letter-spacing: .04em; padding: 8px 0; min-height: 44px; gap: 9px; border: 0; border-radius: 0; background: transparent; color: var(--secondary); }
+.hero--cosmos .button-primary { color: var(--text); }
+.hero--cosmos .button:hover { background: transparent; color: var(--accent); transform: none; opacity: 1; }
+.hero--cosmos .button .icon { width: 14px; height: 14px; }
+.system-tag { position: absolute; display: flex; gap: 8px; align-items: center; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 9px; font-weight: 400; letter-spacing: .03em; color: var(--secondary); pointer-events: none; }
+.system-tag > span:first-child { color: var(--accent); }
+.system-tag-top { top: 86px; left: 8.2%; }
+.system-tag-top::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+.system-tag-right { top: 125px; right: 8.2%; opacity: .65; }
+.system-tag-bottom { bottom: 65px; left: 8.2%; }
+.sound-control { position: absolute; right: 8.2%; bottom: 52px; display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 8px 0; font-size: 10px; color: var(--secondary); background: transparent; border: 0; border-radius: 0; }
+.sound-code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 9px; letter-spacing: .04em; color: var(--accent); display: inline-flex; gap: 7px; }
+.sound-control:hover { color: var(--accent); }
+.sound-control:disabled { cursor: wait; opacity: .7; }
+.sound-meter { display: flex; height: 10px; align-items: center; gap: 2px; }
+.sound-meter i { width: 1px; height: 3px; background: var(--accent); }
+.sound-meter i:nth-child(2), .sound-meter i:nth-child(4) { height: 7px; }
+.sound-meter i:nth-child(3) { height: 10px; }
+.scroll-cue { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: grid; justify-items: center; gap: 9px; min-height: 44px; padding: 7px 14px; color: var(--secondary); font-size: 10px; letter-spacing: .14em; }
+.scroll-cue .icon { width: 14px; height: 14px; color: var(--accent); transform: rotate(90deg); }
+.scroll-cue:hover { color: var(--accent); }
+.project-featured .project-image, .project-personal .project-image { background: var(--surface-alt); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-content { animation: field-enter 1.2s ease both; }
+  .system-tag-top { animation: field-float 24s ease-in-out infinite alternate; }
+  .system-tag-right { animation: field-float 28s -12s ease-in-out infinite alternate; }
+  .sound-control[aria-pressed='true'] .sound-meter i { animation: sound-breathe 2.4s ease-in-out infinite alternate; }
+  .sound-meter i:nth-child(2) { animation-delay: -.8s !important; }
+  .sound-meter i:nth-child(4) { animation-delay: -1.6s !important; }
+  @keyframes field-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes field-float { to { transform: translateY(-6px); } }
+  @keyframes sound-breathe { to { transform: scaleY(.4); } }
+}
+@media (max-width: 767px) {
+  .header-inner { height: 64px; }
+  .wordmark { font-size: 15px; }
+  .hero--cosmos { min-height: calc(100dvh - 65px); }
+  .hero-content { width: calc(100% - 44px); padding: 92px 0 155px; }
+  .cosmos-intro { font-size: 10px; gap: 9px; margin-bottom: 16px; }
+  .particle-stage { height: 274px; }
+  .particle-fallback span { font-size: 16vw; }
+  .title-break { display: initial; }
+  .hero--cosmos .hero-description { margin-top: 20px; font-size: 14px; }
+  .hero--cosmos .hero-buttons { margin-top: 20px; gap: 26px; }
+  .field-frame { inset: 36px 22px 34px; }
+  .field-frame i { width: 15px; height: 15px; }
+  .system-tag-top { top: 62px; left: 32px; font-size: 8px; }
+  .system-tag-right { top: 83px; right: 32px; font-size: 8px; }
+  .system-tag-bottom { bottom: 95px; left: 32px; font-size: 8px; }
+  .sound-control { bottom: 81px; right: 32px; gap: 9px; font-size: 9px; }
+  .sound-code { font-size: 8px; gap: 5px; }
+  .scroll-cue { bottom: 28px; font-size: 9px; }
+  .hero--cosmos::before { background-size: 48px 48px; }
+}
+@media (max-width: 359px) {
+  .hero-content { width: calc(100% - 36px); }
+  .particle-stage { height: 240px; }
+  .hero--cosmos .hero-description { font-size: 12px; }
+  .sound-meter { display: none; }
+}

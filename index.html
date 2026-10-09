@@ -1,764 +1,152 @@
-<!DOCTYPE html><html data-src-ver="75b76459" lang="zh" data-immersive-translate-page-theme="light"><head>
-
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>张逍煜 · Xiaoyu Zhang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #ffffff;
-    --bg2: #f5f5f7;
-    --ink: #1d1d1f;
-    --ink-2: #424245;
-    --ink-3: #86868b;
-    --border: rgba(0,0,0,0.08);
-    --border-strong: rgba(0,0,0,0.14);
-    --accent-1: oklch(60% 0.18 270);
-    --accent-2: oklch(60% 0.18 210);
-    --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --radius: 18px;
-    --shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 1px rgba(0,0,0,0.08);
-    --shadow-hover: 0 8px 40px rgba(0,0,0,0.10), 0 0 1px rgba(0,0,0,0.08);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-weight: 400;
-    overflow-x: hidden;
-  }
-
-  /* ─── Nav ─── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-  }
-  .nav-inner {
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid var(--border);
-    border-radius: 9999px;
-    padding: 0.55rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    opacity: 0;
-    transform: translateY(-8px);
-    animation: fadeDown 0.6s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-  .nav-logo {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--ink);
-    text-decoration: none;
-    letter-spacing: -0.01em;
-  }
-  .nav-divider {
-    width: 1px;
-    height: 16px;
-    background: var(--border-strong);
-  }
-  .nav-links {
-    display: flex;
-    gap: 0.25rem;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--ink-2);
-    text-decoration: none;
-    padding: 0.3rem 0.75rem;
-    border-radius: 9999px;
-    transition: background 0.2s, color 0.2s;
-  }
-  .nav-links a:hover {
-    background: rgba(0,0,0,0.05);
-    color: var(--ink);
-  }
-
-  /* ─── Hero ─── */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 8rem 2rem 6rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Gradient orbs */
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-    animation: orbFloat 8s ease-in-out infinite alternate;
-  }
-  .orb-1 {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, oklch(85% 0.1 270 / 0.35), transparent 70%);
-    top: -100px; left: -100px;
-    animation-delay: 0s;
-  }
-  .orb-2 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, oklch(85% 0.1 210 / 0.3), transparent 70%);
-    bottom: 0px; right: -50px;
-    animation-delay: -3s;
-  }
-  .orb-3 {
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, oklch(88% 0.08 160 / 0.2), transparent 70%);
-    top: 40%; left: 60%;
-    animation-delay: -5s;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(0,0,0,0.04);
-    border: 1px solid var(--border);
-    border-radius: 9999px;
-    padding: 0.35rem 1rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--ink-2);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeDown 0.7s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-  .badge-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: oklch(62% 0.2 145);
-    animation: pulse 2s infinite;
-  }
-
-  .hero-title {
-    font-size: clamp(3rem, 7vw, 6.5rem);
-    font-weight: 600;
-    letter-spacing: -0.035em;
-    line-height: 1.05;
-    margin-bottom: 1.5rem;
-  }
-  .hero-title-cn {
-    display: block;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-  .hero-title-en {
-    display: block;
-    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-
-  .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    font-weight: 400;
-    color: var(--ink-3);
-    max-width: 42ch;
-    line-height: 1.65;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 0.75rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-  .btn {
-    font-family: var(--sans);
-    font-size: 0.875rem;
-    font-weight: 500;
-    padding: 0.7rem 1.5rem;
-    border-radius: 9999px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, background 0.2s;
-    display: inline-block;
-  }
-  .btn:hover { transform: scale(1.03); }
-  .btn-primary {
-    background: var(--ink);
-    color: #fff;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-  }
-  .btn-primary:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-  .btn-ghost {
-    background: rgba(0,0,0,0.05);
-    color: var(--ink);
-    border: 1px solid var(--border);
-  }
-  .btn-ghost:hover { background: rgba(0,0,0,0.08); }
-
-  .hero-scroll-hint {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 0; right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-    opacity: 0;
-    animation: fadeIn 0.8s 1.2s forwards;
-  }
-  .hero-scroll-hint span {
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-  .scroll-chevron {
-    width: 20px; height: 20px;
-    border-right: 1.5px solid var(--ink-3);
-    border-bottom: 1.5px solid var(--ink-3);
-    transform: rotate(45deg);
-    animation: bounce 2s 1.5s infinite;
-    margin-top: -6px;
-  }
-
-  /* ─── Section shared ─── */
-  .section-wrap {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-  section:not(#hero) {
-    padding: 7rem 0;
-    border-top: 1px solid var(--border);
-  }
-  .section-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 0.75rem;
-  }
-  .section-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    margin-bottom: 1rem;
-  }
-  .section-desc {
-    font-size: 1rem;
-    color: var(--ink-2);
-    line-height: 1.7;
-    max-width: 52ch;
-  }
-
-  /* ─── About ─── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 3.5rem;
-  }
-  .about-card {
-    background: var(--bg2);
-    border-radius: var(--radius);
-    padding: 2rem;
-    border: 1px solid var(--border);
-    transition: box-shadow 0.3s, transform 0.3s;
-  }
-  .about-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
-  }
-  .about-card-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: var(--ink);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1.25rem;
-    font-size: 1.1rem;
-  }
-  .about-card h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-  }
-  .about-card p {
-    font-size: 0.875rem;
-    color: var(--ink-2);
-    line-height: 1.7;
-  }
-  .about-card-wide {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    background: linear-gradient(135deg, oklch(95% 0.06 270), oklch(95% 0.06 210));
-  }
-  .about-photo-placeholder {
-    width: 120px; height: 120px;
-    border-radius: 50%;
-    background: white;
-    flex-shrink: 0;
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.6rem;
-    letter-spacing: 0.05em;
-    color: var(--ink-3);
-    text-align: center;
-    padding: 0.5rem;
-    line-height: 1.5;
-  }
-  .about-bio-text h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-  }
-  .about-bio-text p {
-    font-size: 0.9rem;
-    color: var(--ink-2);
-    line-height: 1.7;
-  }
-  .about-tags {
-    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;
-  }
-  .tag {
-    font-size: 0.7rem;
-    font-weight: 500;
-    padding: 0.25rem 0.7rem;
-    border-radius: 9999px;
-    background: white;
-    border: 1px solid var(--border);
-    color: var(--ink-2);
-  }
-
-  /* ─── Experience ─── */
-  .exp-list {
-    margin-top: 3.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .exp-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem 2rem;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1.5rem;
-    align-items: start;
-    transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
-    cursor: default;
-  }
-  .exp-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
-    border-color: var(--border-strong);
-  }
-  .exp-dot-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 0.3rem;
-  }
-  .exp-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-    flex-shrink: 0;
-  }
-  .exp-line {
-    width: 1px;
-    flex: 1;
-    background: var(--border);
-    margin-top: 0.4rem;
-    min-height: 20px;
-  }
-  .exp-card:last-child .exp-line { display: none; }
-  .exp-body h3 {
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.2rem;
-  }
-  .exp-org {
-    font-size: 0.8rem;
-    color: var(--ink-3);
-    margin-bottom: 0.75rem;
-    font-weight: 500;
-  }
-  .exp-desc {
-    font-size: 0.875rem;
-    color: var(--ink-2);
-    line-height: 1.7;
-  }
-  .exp-meta {
-    text-align: right;
-  }
-  .exp-date {
-    font-size: 0.75rem;
-    color: var(--ink-3);
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .exp-badge {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.2rem 0.6rem;
-    border-radius: 9999px;
-    background: oklch(96% 0.06 270);
-    color: var(--accent-1);
-  }
-
-  /* ─── Contact ─── */
-  #contact .section-wrap > * { max-width: 100%; }
-  .contact-grid {
-    margin-top: 3rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-  }
-  .contact-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
-    text-decoration: none;
-    color: var(--ink);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .contact-card::after {
-    content: '↗';
-    position: absolute;
-    top: 1.25rem;
-    right: 1.5rem;
-    font-size: 1rem;
-    color: var(--ink-3);
-    transition: transform 0.3s, color 0.3s;
-  }
-  .contact-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-3px);
-    border-color: var(--border-strong);
-  }
-  .contact-card:hover::after {
-    transform: translate(3px, -3px);
-    color: var(--ink);
-  }
-  .contact-icon {
-    font-size: 1.25rem;
-    width: 44px; height: 44px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .contact-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-  .contact-value {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--ink);
-  }
-
-  /* ─── Footer ─── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem;
-    text-align: center;
-  }
-  footer p {
-    font-size: 0.78rem;
-    color: var(--ink-3);
-  }
-
-  /* ─── Reveal ─── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-  .reveal-delay-1 { transition-delay: 0.08s; }
-  .reveal-delay-2 { transition-delay: 0.16s; }
-  .reveal-delay-3 { transition-delay: 0.24s; }
-  .reveal-delay-4 { transition-delay: 0.32s; }
-  .reveal-delay-5 { transition-delay: 0.40s; }
-
-  /* ─── Keyframes ─── */
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: none; }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: none; }
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.85); }
-  }
-  @keyframes bounce {
-    0%, 100% { transform: rotate(45deg) translateY(0); }
-    50% { transform: rotate(45deg) translateY(4px); }
-  }
-  @keyframes orbFloat {
-    from { transform: translate(0, 0) scale(1); }
-    to   { transform: translate(30px, 20px) scale(1.05); }
-  }
-
-  @media (max-width: 700px) {
-    .about-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .exp-card { grid-template-columns: auto 1fr; }
-    .exp-meta { display: none; }
-    .about-card-wide { flex-direction: column; }
-  }
-</style>
-<style data-id="immersive-translate-input-injected-css"></style></head>
-<body style="cursor: crosshair; background-color: rgb(246, 254, 255); font-family: sans-serif; font-size: 16px;" data-cc-id="cc-2">
-
-<!-- Nav -->
-<nav data-cc-id="cc-1">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">张逍煜</a>
-    <div class="nav-divider"></div>
-    <ul class="nav-links">
-      <li><a href="#about">关于</a></li>
-      <li><a href="#experience">经历</a></li>
-      <li><a href="#contact">联系</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- Hero -->
-<section id="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-
-  <div class="hero-badge">
-    <span class="badge-dot"></span>
-    学生 · 2026
-  </div>
-
-  <h1 class="hero-title">
-    <span class="hero-title-cn">张逍煜</span>
-    <span class="hero-title-en">Xiaoyu Zhang</span>
-  </h1>
-
-  <p class="hero-sub">以好奇心驱动的学生，探索知识与创造的边界。<br>喜欢用设计与技术把想法变成现实。</p>
-
-  <div class="hero-cta">
-    <a href="#contact" class="btn btn-primary">联系我</a>
-    <a href="#about" class="btn btn-ghost">了解更多</a>
-  </div>
-
-  <div class="hero-scroll-hint">
-    <div class="scroll-chevron"></div>
-    <span>向下滚动</span>
-  </div>
-</section>
-
-<!-- About -->
-<section id="about">
-  <div class="section-wrap">
-    <p class="section-eyebrow reveal">关于我</p>
-    <h2 class="section-title reveal reveal-delay-1">你好，我是逍煜</h2>
-    <p class="section-desc reveal reveal-delay-2">一名对世界充满好奇的学生，相信学习没有边界，热爱探索设计、技术与人文的交叉地带。</p>
-
-    <div class="about-grid">
-      <div class="about-card about-card-wide reveal reveal-delay-1">
-        <div class="about-photo-placeholder">头像<br>Portrait</div>
-        <div class="about-bio-text">
-          <h3>张逍煜 · Xiaoyu Zhang</h3>
-          <p>我相信每一个问题都是一扇新的门。在学习之余，我对设计思维、独立开发和创意写作尤感兴趣，喜欢在不同领域之间寻找连接。</p>
-          <div class="about-tags">
-            <span class="tag">设计思维</span>
-            <span class="tag">编程开发</span>
-            <span class="tag">跨学科探索</span>
-            <span class="tag">阅读写作</span>
-            <span class="tag">摄影</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-card reveal reveal-delay-2">
-        <div class="about-card-icon">🎯</div>
-        <h3>目标与方向</h3>
-        <p>持续学习，保持开放心态，在实践中不断打磨自己的思维与能力。</p>
-      </div>
-
-      <div class="about-card reveal reveal-delay-3">
-        <div class="about-card-icon">✦</div>
-        <h3>兴趣与爱好</h3>
-        <p>设计、代码、摄影、阅读——在不同媒介中寻找表达的可能性。</p>
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08090c">
+  <meta name="description" content="张逍煜 Xiaoyu Zhang 的个人主页。展示研究兴趣、项目实践与个人经历。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="张逍煜 · Xiaoyu Zhang">
+  <meta property="og:description" content="保持好奇，用设计与技术把想法变成现实。">
+  <meta property="og:url" content="https://origin-zxy.github.io/">
+  <meta property="og:image" content="https://origin-zxy.github.io/assets/social-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://origin-zxy.github.io/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/jakarta-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <title>张逍煜 · Xiaoyu Zhang</title>
+  <script>
+    try {
+      const saved = localStorage.getItem('xiaoyu-field-theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+    } catch {}
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="hero.css">
+  <script src="site.js" defer></script>
+  <script src="hero.js" defer></script>
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"ProfilePage","name":"张逍煜 · Xiaoyu Zhang","url":"https://origin-zxy.github.io/","mainEntity":{"@type":"Person","name":"张逍煜","alternateName":"Xiaoyu Zhang","url":"https://origin-zxy.github.io/","sameAs":["https://github.com/Origin-ZXY"]}}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到正文</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="#hero" aria-label="张逍煜，回到首页">张逍煜<span aria-hidden="true">.</span></a>
+      <div class="header-actions">
+        <nav id="navigation" aria-label="主导航">
+          <a href="#about">关于</a>
+          <a href="#experience">经历</a>
+          <a href="#contact">联系</a>
+        </nav>
+        <button class="icon-button theme-toggle js-only" type="button" aria-label="切换深浅色模式">
+          <svg class="icon theme-moon" aria-hidden="true"><use href="assets/icons.svg#moon"></use></svg>
+          <svg class="icon theme-sun" aria-hidden="true"><use href="assets/icons.svg#sun"></use></svg>
+        </button>
+        <button class="icon-button menu-toggle js-only" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="navigation">
+          <svg class="icon menu-open" aria-hidden="true"><use href="assets/icons.svg#menu-2"></use></svg>
+          <svg class="icon menu-close" aria-hidden="true"><use href="assets/icons.svg#x"></use></svg>
+        </button>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- Experience -->
-<section id="experience">
-  <div class="section-wrap">
-    <p class="section-eyebrow reveal">经历</p>
-    <h2 class="section-title reveal reveal-delay-1">我的成长轨迹</h2>
-    <p class="section-desc reveal reveal-delay-2">从课堂到项目，每一段经历都在塑造现在的我。</p>
-
-    <div class="exp-list">
-      <div class="exp-card reveal reveal-delay-1">
-        <div class="exp-dot-col">
-          <div class="exp-dot"></div>
-          <div class="exp-line"></div>
+  <main id="main">
+    <!-- 个人介绍：直接修改姓名、简介与按钮链接。 -->
+    <section id="hero" class="hero--cosmos" aria-labelledby="hero-title">
+      <canvas id="space-background" aria-hidden="true"></canvas>
+      <div class="space-haze" aria-hidden="true"></div>
+      <div class="field-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="system-tag system-tag-top" aria-hidden="true"><span>SYS.</span><span id="space-state">STANDBY</span></div>
+      <div class="system-tag system-tag-right" aria-hidden="true"><span>[ RESEARCH.LOG ]</span></div>
+      <div class="hero-content">
+        <p class="cosmos-intro">张逍煜<span aria-hidden="true"></span>研究与项目实践</p>
+        <div class="particle-stage" tabindex="0" aria-label="互动星尘标题" aria-describedby="particle-instructions">
+          <h1 id="hero-title" class="particle-fallback"><span lang="en">XIAOYU <br class="title-break">ZHANG</span><span class="sr-only">张逍煜</span></h1>
+          <canvas id="title-stars" aria-hidden="true"></canvas>
         </div>
-        <div class="exp-body">
-          <h3>在读学生</h3>
-          <p class="exp-org">某知名高校</p>
-          <p class="exp-desc">专注于跨学科研究，积极参与课题项目与校园社团活动，在实践中不断拓展知识边界。</p>
-        </div>
-        <div class="exp-meta">
-          <div class="exp-date">2024 — 现在</div>
-          <div class="exp-badge">Education</div>
+        <p id="particle-instructions" class="sr-only">移动鼠标或轻触标题可以拨动粒子。也可聚焦标题，用方向键移动，按 Escape 让粒子归位。声音默认关闭，可用开启声音按钮启用。</p>
+        <p class="hero-description">从好奇出发，在研究中寻找答案。<br>让想法在真实的项目里生长。</p>
+        <div class="hero-buttons">
+          <a class="button button-primary" href="#experience">项目经历<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-right"></use></svg></a>
+          <a class="button button-secondary" href="#contact">联系我<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
         </div>
       </div>
+      <div class="system-tag system-tag-bottom" aria-hidden="true"><span>STARDUST</span><span id="field-state">RESTING</span></div>
+      <button id="sound-toggle" class="sound-control js-only" type="button" aria-pressed="false" aria-label="SOUND OFF 开启声音">
+        <span class="sound-code" aria-hidden="true">SOUND <span id="sound-state">OFF</span></span>
+        <span class="sound-meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <span id="sound-label">开启声音</span>
+      </button>
+      <a class="scroll-cue" href="#about">向下探索<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-right"></use></svg></a>
+      <p id="sound-message" class="sr-only" role="status" aria-live="polite"></p>
+    </section>
 
-      <div class="exp-card reveal reveal-delay-2">
-        <div class="exp-dot-col">
-          <div class="exp-dot"></div>
-          <div class="exp-line"></div>
-        </div>
-        <div class="exp-body">
-          <h3>项目实践</h3>
-          <p class="exp-org">校级竞赛 / 社团项目</p>
-          <p class="exp-desc">参与多个团队合作项目，负责方案策划与呈现，培养了协作能力与批判性思维。</p>
-        </div>
-        <div class="exp-meta">
-          <div class="exp-date">2023</div>
-          <div class="exp-badge">Project</div>
-        </div>
-      </div>
-
-      <div class="exp-card reveal reveal-delay-3">
-        <div class="exp-dot-col">
-          <div class="exp-dot"></div>
-          <div class="exp-line"></div>
-        </div>
-        <div class="exp-body">
-          <h3>自学探索</h3>
-          <p class="exp-org">个人项目</p>
-          <p class="exp-desc">自主学习设计与编程，完成若干个人创作项目，逐步建立起跨领域的知识体系。</p>
-        </div>
-        <div class="exp-meta">
-          <div class="exp-date">2022</div>
-          <div class="exp-badge">Personal</div>
+    <section id="about" class="about section container" aria-labelledby="about-title">
+      <div class="about-heading reveal">
+        <h2 id="about-title">关于我，<br>以及我的研究兴趣。</h2>
+        <div class="profile">
+          <img src="assets/avatar-small.jpg" width="64" height="64" alt="张逍煜的 GitHub 头像" loading="lazy" decoding="async">
+          <div><strong>张逍煜</strong><span>学生 · 持续学习中</span></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Contact -->
-<section id="contact">
-  <div class="section-wrap">
-    <p class="section-eyebrow reveal">联系方式</p>
-    <h2 class="section-title reveal reveal-delay-1">开始一段对话</h2>
-    <p class="section-desc reveal reveal-delay-2">无论是合作、交流还是只是打个招呼，都欢迎联系我。</p>
-
-    <div class="contact-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 640px;">
-      <div class="contact-card reveal reveal-delay-1" id="email-card" style="cursor:pointer;">
-        <div class="contact-icon">✉️</div>
-        <span class="contact-label">Email</span>
-        <span class="contact-value contact-value-email"></span>
+      <div class="about-content reveal">
+        <p class="about-intro">从问题出发，<br>在实践中寻找答案。</p>
+        <p>在学习之余，我对设计思维、独立开发和创意写作尤感兴趣。喜欢探索设计、技术与人文的交叉地带，也喜欢在不同媒介中寻找表达的可能性。</p>
+        <ul class="interests" aria-label="兴趣方向">
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#bulb"></use></svg>设计思维</li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#code"></use></svg>编程开发</li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#book"></use></svg>阅读写作</li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#camera"></use></svg>摄影</li>
+        </ul>
+        <p class="about-closing">持续学习，保持开放。在实践中打磨思维与能力。</p>
       </div>
-      <a href="https://github.com/Origin-ZXY" target="_blank" class="contact-card reveal reveal-delay-2">
-        <div class="contact-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-          </svg>
+      <div class="research-note reveal">
+        <h3>研究方向</h3>
+        <div><span class="draft-label">待补充</span><p>具体研究主题与研究方法尚待补充。</p></div>
+      </div>
+    </section>
+
+    <!-- 项目经历暂时留空，后续补充真实经历。 -->
+    <section id="experience" class="experience section" aria-labelledby="experience-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <h2 id="experience-title">项目经历</h2>
         </div>
-        <span class="contact-label">GitHub</span>
-        <span class="contact-value">github.com/Origin-ZXY</span>
-      </a>
-    </div>
-  </div>
-</section>
+      </div>
+    </section>
 
-<footer>
-  <p>© 2026 张逍煜 · Xiaoyu Zhang — Designed with care</p>
-</footer>
+    <!-- 联系信息来自原主页；修改邮箱时同步修改邮件链接和复制按钮。 -->
+    <section id="contact" class="contact section container" aria-labelledby="contact-title">
+      <div class="contact-intro reveal">
+        <p class="eyebrow">Say hello</p>
+        <h2 id="contact-title">开始一段对话。</h2>
+        <p>合作、交流，或者只是打个招呼，<br>都欢迎联系我。</p>
+      </div>
+      <div class="contact-methods reveal">
+        <div class="contact-row">
+          <svg class="icon contact-icon" aria-hidden="true"><use href="assets/icons.svg#mail"></use></svg>
+          <a class="contact-link" href="mailto:zhangxiaoyu2064@163.com"><span class="contact-label">邮箱</span><span class="contact-value">zhangxiaoyu2064@163.com</span></a>
+          <button class="icon-button copy-email js-only" type="button" data-email="zhangxiaoyu2064@163.com" aria-label="复制邮箱地址">
+            <svg class="icon copy-icon" aria-hidden="true"><use href="assets/icons.svg#copy"></use></svg>
+            <svg class="icon check-icon" aria-hidden="true"><use href="assets/icons.svg#check"></use></svg>
+          </button>
+        </div>
+        <div class="contact-row">
+          <svg class="icon contact-icon" aria-hidden="true"><use href="assets/icons.svg#brand-github"></use></svg>
+          <a class="contact-link" href="https://github.com/Origin-ZXY" target="_blank" rel="noopener noreferrer"><span class="contact-label">GitHub</span><span class="contact-value">Origin-ZXY</span><span class="sr-only">，在新标签页打开</span></a>
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"></use></svg>
+        </div>
+        <p class="copy-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
 
-<script>
-// Email obfuscation
-const emailParts = ['zhangxiaoyu2064', '@', '163.com'];
-const emailEl = document.querySelector('.contact-value-email');
-if (emailEl) {
-  emailEl.textContent = emailParts.join('');
-  document.getElementById('email-card').addEventListener('click', () => {
-    window.location = 'mailto:' + emailParts.join('');
-  });
-}
-
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// Nav active state
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let cur = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 160) cur = s.id; });
-  navLinks.forEach(a => {
-    const active = a.getAttribute('href') === '#' + cur;
-    a.style.background = active ? 'rgba(0,0,0,0.07)' : '';
-    a.style.color = active ? 'var(--ink)' : '';
-  });
-}, { passive: true });
-</script>
-
-
-</body></html>
+  <footer class="container footer">
+    <p>© <span id="year">2026</span> 张逍煜</p>
+    <p>保持好奇，继续创造。</p>
+    <a href="#hero">回到顶部<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"></use></svg></a>
+  </footer>
+</body>
+</html>
