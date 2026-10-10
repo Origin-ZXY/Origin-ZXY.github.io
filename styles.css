@@ -158,6 +158,49 @@ h2 { font-size: clamp(30px, 3.1vw, 44px); line-height: 1.4; letter-spacing: -.04
 .all-projects { display: inline-flex; align-items: center; gap: 14px; color: var(--accent); font-size: 14px; font-weight: 600; margin-top: 40px; padding-block: 8px; }
 .all-projects:hover .icon { transform: translate(2px, -2px); }
 
+/* Research project: one full-width article, with the original figure as media. */
+.grounding-project { margin-top: 48px; }
+.grounding-copy { max-width: 900px; }
+.grounding-copy h3 { font-size: clamp(26px, 3vw, 38px); line-height: 1.3; font-weight: 650; letter-spacing: -.035em; text-wrap: balance; }
+.grounding-subtitle { margin-top: 14px; font-size: 18px; font-weight: 500; }
+.grounding-summary, .grounding-method { max-width: 52em; color: var(--secondary); font-size: 15px; line-height: 1.9; }
+.grounding-summary { margin-top: 26px; }
+.grounding-method { margin-top: 12px; }
+.grounding-topics { display: flex; flex-wrap: wrap; gap: 8px 20px; list-style: none; padding: 0; margin: 24px 0 0; font-size: 12px; color: var(--accent); }
+.grounding-datasets { margin-top: 14px; color: var(--secondary); font-size: 13px; }
+.grounding-datasets > span { margin-right: 18px; }
+.grounding-results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin: 38px 0; padding-block: 26px; border-block: 1px solid var(--border); }
+.grounding-results dt { color: var(--secondary); font-size: 12px; line-height: 1.6; }
+.grounding-results dd { margin: 8px 0 0; font-size: clamp(30px, 4vw, 46px); font-weight: 550; line-height: 1.2; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.grounding-results dd > span { margin-left: 3px; color: var(--secondary); font-size: .5em; }
+.grounding-figure { margin: 0; }
+.grounding-figure-link { display: block; padding: 18px; background: #fff; border-radius: 20px; }
+.grounding-figure img { display: block; width: 100%; height: auto; }
+.grounding-figure figcaption { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 14px; color: var(--secondary); font-size: 12px; }
+.grounding-figure figcaption a { display: inline-flex; gap: 6px; align-items: center; color: var(--accent); padding-block: 6px; }
+.grounding-figure figcaption a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.grounding-figure figcaption .icon { width: 16px; height: 16px; }
+.grounding-resources { display: flex; flex-wrap: wrap; gap: 16px 36px; margin-top: 26px; font-size: 13px; }
+.grounding-resources p { color: var(--text); }
+.grounding-resources span { margin-left: 14px; color: var(--secondary); font-size: 12px; }
+@media (max-width: 767px) {
+  .grounding-project { margin-top: 30px; }
+  .grounding-title-break { display: none; }
+  .grounding-subtitle { font-size: 16px; line-height: 1.7; }
+  .grounding-summary, .grounding-method { font-size: 14px; }
+  .grounding-topics { gap: 8px 16px; }
+  .grounding-results { gap: 12px; margin-block: 28px; padding-block: 22px; }
+  .grounding-results dt { font-size: 12px; min-height: 4.8em; }
+  .grounding-results dd { font-size: clamp(22px, 6vw, 34px); }
+  .grounding-figure-link { padding: 8px; border-radius: 20px; }
+}
+@media (max-width: 359px) {
+  .grounding-results { grid-template-columns: 1fr; gap: 18px; }
+  .grounding-results > div { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .grounding-results dt { min-height: 0; }
+  .grounding-results dd { margin: 0; white-space: nowrap; }
+}
+
 .contact { display: grid; grid-template-columns: 1fr 1.1fr; gap: 96px; }
 .contact-intro h2 { margin-top: 14px; }
 .contact-intro > p:last-child { color: var(--secondary); font-size: 15px; margin-top: 20px; }
