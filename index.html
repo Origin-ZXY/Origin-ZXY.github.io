@@ -21,7 +21,7 @@
       if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
     } catch {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=20261029-catan">
+  <link rel="stylesheet" href="styles.css?v=20261029-paper-split">
   <link rel="stylesheet" href="hero.css">
   <script src="site.js" defer></script>
   <script src="hero.js" defer></script>
@@ -114,33 +114,35 @@
         <div class="section-heading reveal">
           <h2 id="experience-title">项目经历</h2>
         </div>
-        <article class="grounding-project" aria-labelledby="grounding-title">
-          <div class="grounding-copy reveal">
-            <h3 id="grounding-title" lang="en">Enhancing Long-Tailed 3D Visual Grounding with<br class="grounding-title-break"> Cross-Level Scene-Adaptive Prototype Learning</h3>
-            <p class="grounding-subtitle">长尾监督下的语言引导三维目标定位</p>
-            <p class="grounding-datasets"><span>项目时间</span><time datetime="2025-12">2025.12</time> - <time datetime="2026-09">2026.09</time></p>
-            <p class="grounding-summary">根据自然语言描述，在三维点云场景中找到对应物体。例如，从多个相似物体中定位“画作下方、树旁边的浅棕色沙发”。</p>
-            <p class="grounding-method">基于 TSP3D，通过语言引导的双层原型学习复用跨类别视觉信息，利用场景信息协调粗、细粒度特征，并结合空间关系重排序改善目标定位。</p>
-            <ul class="grounding-topics" aria-label="技术方向">
-              <li>3D 视觉定位</li><li>多模态学习</li><li>原型学习</li><li>长尾学习</li><li>稀疏卷积</li>
-            </ul>
-            <p class="grounding-datasets"><span>评测数据集</span>ScanRefer / Nr3D / Sr3D</p>
+        <article id="grounding" class="grounding-project" aria-labelledby="grounding-title">
+          <div class="grounding-details reveal">
+            <div class="grounding-copy">
+              <h3 id="grounding-title" lang="en">Enhancing Long-Tailed 3D Visual Grounding with<br class="grounding-title-break"> Cross-Level Scene-Adaptive Prototype Learning</h3>
+              <p class="grounding-subtitle">长尾监督下的语言引导三维目标定位</p>
+              <p class="grounding-datasets"><span>项目时间</span><time datetime="2025-12">2025.12</time> - <time datetime="2026-09">2026.09</time></p>
+              <p class="grounding-summary">根据自然语言描述，在三维点云场景中找到对应物体。例如，从多个相似物体中定位“画作下方、树旁边的浅棕色沙发”。</p>
+              <p class="grounding-method">基于 TSP3D，通过语言引导的双层原型学习复用跨类别视觉信息，利用场景信息协调粗、细粒度特征，并结合空间关系重排序改善目标定位。</p>
+              <ul class="grounding-topics" aria-label="技术方向">
+                <li>3D 视觉定位</li><li>多模态学习</li><li>原型学习</li><li>长尾学习</li><li>稀疏卷积</li>
+              </ul>
+              <p class="grounding-datasets"><span>评测数据集</span>ScanRefer / Nr3D / Sr3D</p>
+            </div>
+            <dl class="grounding-results" aria-label="ScanRefer 主要评测结果">
+              <div><dt>ScanRefer · Acc@0.50</dt><dd>48.23<span>%</span></dd></div>
+              <div><dt>长尾类别</dt><dd>36.79<span>%</span></dd></div>
+              <div><dt>长尾类别 · 较 TSP3D 相对提升</dt><dd>+7.38<span>%</span></dd></div>
+            </dl>
+            <div class="grounding-resources" aria-label="项目资源状态">
+              <p>论文 <span lang="en">Coming soon</span></p>
+              <p>代码 <span lang="en">Coming soon</span></p>
+            </div>
           </div>
-          <dl class="grounding-results reveal" aria-label="ScanRefer 主要评测结果">
-            <div><dt>ScanRefer · Acc@0.50</dt><dd>48.23<span>%</span></dd></div>
-            <div><dt>长尾类别</dt><dd>36.79<span>%</span></dd></div>
-            <div><dt>长尾类别 · 较 TSP3D 相对提升</dt><dd>+7.38<span>%</span></dd></div>
-          </dl>
           <figure class="grounding-figure reveal">
             <a class="grounding-figure-link" href="assets/grounding-framework.webp" target="_blank" rel="noopener noreferrer" aria-label="查看三维目标定位方法框架大图，在新标签页打开">
               <img src="assets/grounding-framework.webp" width="2039" height="1070" alt="方法框架：点云经稀疏骨干网络提取特征，语言引导局部与细节原型读取，结合场景自适应路由增强目标证据，最后根据参照物空间关系重排候选目标。" loading="lazy" decoding="async">
             </a>
             <figcaption><span>方法框架</span><a href="assets/grounding-framework.webp" target="_blank" rel="noopener noreferrer">查看大图<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"></use></svg><span class="sr-only">，在新标签页打开</span></a></figcaption>
           </figure>
-          <div class="grounding-resources reveal" aria-label="项目资源状态">
-            <p>论文 <span lang="en">Coming soon</span></p>
-            <p>代码 <span lang="en">Coming soon</span></p>
-          </div>
         </article>
         <article id="catan" class="catan-project" aria-labelledby="catan-title">
           <div class="grounding-copy catan-copy reveal">
