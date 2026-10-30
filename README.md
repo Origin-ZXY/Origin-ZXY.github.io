@@ -38,6 +38,8 @@ python3 -m http.server 4173 --bind 127.0.0.1
 
 ## GitHub Pages
 
+项目经历新增「拼布对决 Patchwork」，介绍经典版 33 块布料、双面时间棋盘、一屏布局、启发式策略 AI 和服务端房间能力。公开试玩入口为 `https://origin-zxy.github.io/Patchwork/`，该静态入口支持人机与同屏双人；跨设备联机需要部署仓库内的 Node.js 或 Cloudflare Worker 服务。源码入口为 `https://github.com/Origin-ZXY/Patchwork`。项目预览使用当前实际页面截图，沿用卡坦岛项目的既有排版。
+
 将本目录内容上传到 `Origin-ZXY/Origin-ZXY.github.io` 的发布分支根目录，保留 `assets/` 目录结构。若从分支发布，设置为 `Settings → Pages → Deploy from a branch → main → / (root)`。
 
 参考：[GitHub Pages 官方文档](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)。
